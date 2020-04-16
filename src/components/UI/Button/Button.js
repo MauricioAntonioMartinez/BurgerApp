@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Button.css";
+import { withRouter } from "react-router-dom";
 
 const Button = (props) => {
   return (
@@ -12,4 +13,4 @@ const Button = (props) => {
   );
 };
 
-export default Button;
+export default withRouter(Button);

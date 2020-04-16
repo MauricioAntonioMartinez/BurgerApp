@@ -3,9 +3,9 @@ import classes from "./BurgeControls.css";
 import BuildControl from "./BuildControl/BuildControl";
 
 const controls = [
-  { label: "Salad", type: "Salad" },
-  { label: "Bacon", type: "Bacon" },
-  { label: "Cheese", type: "Cheese" },
+  { label: "salad", type: "salad" },
+  { label: "bacon", type: "bacon" },
+  { label: "cheese", type: "cheese" },
   { label: "meat", type: "meat" },
 ];
 

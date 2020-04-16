@@ -20,13 +20,13 @@ class BurgerIngridient extends Component {
       case "meat":
         ingridient = <div className={classes.Meat}></div>;
         break;
-      case "Cheese":
+      case "cheese":
         ingridient = <div className={classes.Cheese}></div>;
         break;
-      case "Salad":
+      case "salad":
         ingridient = <div className={classes.Salad}></div>;
         break;
-      case "Bacon":
+      case "bacon":
         ingridient = <div className={classes.Bacon}></div>;
         break;
       default:

@@ -29,14 +29,17 @@ class BurgerBuilder extends Component {
     return sum > 0;
   }
 
-  purchaseHandler = () => this.setState({ purchasing: true });
+  purchaseHandler = () => {
+    if (this.props.isAuthenticated) this.setState({ purchasing: true });
+    else this.props.history.push("./auth");
+  };
   purchaseCancelHandler = () => this.setState({ purchasing: false });
   purchaseContinueHandler = () => {
     this.props.onInitPurchase();
     this.props.history.push("/checkout");
   };
   render() {
-    const disabledInfo = { ...this.props.ings };
+    const disabledInfo = { ...this.props.ingredients };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
@@ -48,23 +51,24 @@ class BurgerBuilder extends Component {
       <Spinner />
     );
 
-    if (this.props.ings) {
+    if (this.props.ingredients) {
       burger = (
         <Aux>
-          <Burger ingredients={this.props.ings} />
+          <Burger ingredients={this.props.ingredients} />
           <BurgerControls
             ingridientAdded={(e) => this.props.onIngredientAdded(e)}
             ingridientRemove={(e) => this.props.onIngredientRemoved(e)}
             disabled={disabledInfo}
             price={this.props.price}
-            purchaseable={this.updatePurchaseState(this.props.ings)}
-            ordered={this.purchaseHandler.bind(this)}
+            purchaseable={this.updatePurchaseState(this.props.ingredients)}
+            ordered={this.purchaseHandler}
+            isAuth={this.props.isAuthenticated}
           />
         </Aux>
       );
       orderSummary = (
         <OrderSummary
-          ingredients={this.props.ings}
+          ingredients={this.props.ingredients}
           purchaseCancel={this.purchaseCancelHandler}
           purchaseContinue={this.purchaseContinueHandler}
           price={this.props.price}
@@ -88,9 +92,10 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.BurgerBuilder.ingredients,
+    ingredients: state.BurgerBuilder.ingredients,
     price: state.BurgerBuilder.totalPrice,
     error: state.BurgerBuilder.error,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {

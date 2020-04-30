@@ -33,6 +33,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
     render() {
       const ini = this.state.initialized;
       if (!ini) return null;
+
       return (
         <Aux>
           <Modal
